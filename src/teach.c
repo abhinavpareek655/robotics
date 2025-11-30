@@ -111,7 +111,7 @@ void autoSaveTeach(TeachData *t) {
     }
 
     printf("\nA recording already exists.\n");
-    printf("Overwrite (O) or Append (A)?: ");
+    printf("Overwrite (O), Append (A) or Cancel (C)?: ");
 
     char c = getch();
     printf("%c\n", c);
@@ -121,6 +121,9 @@ void autoSaveTeach(TeachData *t) {
     } 
     else if (c == 'a' || c == 'A') {
         saveTeachAppend(t);
+    } 
+    else {
+        printf("\nAuto-save cancelled.\n");
     }
 }
 
@@ -131,4 +134,27 @@ void clearTeachFile() {
     } else {
         printf("\nNo recording file exists.\n");
     }
+}
+
+void loadTeachFile(TeachData *t) {
+    FILE *f = fopen(RECORD_FILE, "r");
+    if (!f) {
+        printf("\nCannot load: recording file missing.\n");
+        return;
+    }
+
+    fscanf(f, "%d", &t->count);
+    if (t->count > MAX_STEPS) t->count = MAX_STEPS;
+
+    for (int i = 0; i < t->count; i++) {
+        fscanf(f, "%d %d %d %d",
+               &t->steps[i].base,
+               &t->steps[i].shoulder,
+               &t->steps[i].elbow,
+               &t->steps[i].wrist
+        );
+    }
+
+    fclose(f);
+    printf("\nLoaded %d steps from %s\n", t->count, RECORD_FILE);
 }

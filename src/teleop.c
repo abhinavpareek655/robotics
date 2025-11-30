@@ -40,12 +40,24 @@ void runTeleoperation() {
 
         if (key == 't' || key == 'T') {
             if (!t.recording) startRecording(&t);
-            else stopRecording(&t);
+            else{
+                stopRecording(&t);
+                autoSaveTeach(&t);
+            }
             continue;
         }
 
         if (key == 'p' || key == 'P') {
-            playback(&t);
+            if (t.count > 0) {
+                playback(&t);
+                continue;
+            }
+            if (fileExists(RECORD_FILE)) {
+                loadTeachFile(&t);
+                playback(&t);
+                continue;
+            }
+            printf("\nNo recordings available.\n");
             continue;
         }
 

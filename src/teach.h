@@ -22,5 +22,6 @@ void saveTeachOverwrite(TeachData *t);
 void saveTeachAppend(TeachData *t);
 void autoSaveTeach(TeachData *t);
 void clearTeachFile();
+void loadTeachFile(TeachData *t);
 
 #endif
