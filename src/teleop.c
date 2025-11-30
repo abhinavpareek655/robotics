@@ -21,11 +21,29 @@ void runTeleoperation() {
         char key = getKey();
         if (key == 'x') break;
 
+        if (key == 't') {
+            if (!t.recording) startRecording(&t);
+            else stopRecording(&t);
+            continue;
+        }
+
+        if (key == 'p') {
+            playback(&t);
+            continue;
+        }
+
+        if (key == 'c') {
+            clearTeach(&t);
+            continue;
+        }
+
         updateJoint(&j, key);
         clampJoints(&j);
 
         printStatus(j);
 
         sendJointAngles(j);
+
+        recordStep(&t, j);
     }
 }
