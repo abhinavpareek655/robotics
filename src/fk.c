@@ -3,10 +3,10 @@
 #include <stdio.h>
 #define M_PI 3.14159265358979323846
 
-static double FK_BASE_HEIGHT = 0.05;   // meters (base height from ground to shoulder pivot)
-static double FK_L1 = 0.15;            // meters (shoulder -> elbow)
-static double FK_L2 = 0.15;            // meters (elbow -> wrist)
-static double FK_L3 = 0.10;            // meters (wrist -> gripper tip)
+static double FK_BASE_HEIGHT = 0.04;   // meters (base height from ground to shoulder pivot)
+static double FK_L1 = 0.108;            // meters (shoulder -> elbow)
+static double FK_L2 = 0.107;            // meters (elbow -> wrist)
+static double FK_L3 = 0.05;            // meters (wrist -> gripper tip)
 
 void fk_set_links(double base_height, double L1, double L2, double L3) {
     FK_BASE_HEIGHT = base_height;
