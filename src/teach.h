@@ -3,7 +3,8 @@
 
 #include "joints.h"
 
-#define MAX_STEPS 200   // enough for student project
+#define MAX_STEPS 200
+#define RECORD_FILE "recording.rec"
 
 typedef struct {
     RobotJoints steps[MAX_STEPS];
@@ -16,6 +17,10 @@ void startRecording(TeachData *t);
 void stopRecording(TeachData *t);
 void recordStep(TeachData *t, RobotJoints j);
 void playback(TeachData *t);
-void clearTeach(TeachData *t);
+int fileExists(const char *filename);
+void saveTeachOverwrite(TeachData *t);
+void saveTeachAppend(TeachData *t);
+void autoSaveTeach(TeachData *t);
+void clearTeachFile();
 
 #endif
