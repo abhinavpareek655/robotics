@@ -4,6 +4,7 @@
 #include "teach.h"
 #include "serial.h"
 #include <conio.h>
+#include "fk_log.h"
 
 void initTeach(TeachData *t) {
     t->count = 0;
@@ -43,6 +44,7 @@ void playback(TeachData *t) {
 
     for (int i = 0; i < t->count; i++) {
         sendJointAngles(t->steps[i]);
+        fk_log_step(&(t->steps[i]));
         Sleep(200);
     }
 

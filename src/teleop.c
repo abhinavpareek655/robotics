@@ -5,6 +5,11 @@
 #include "ui.h"
 #include "teach.h"
 #include "serial.h"
+#include "fk_ui.h"
+#include "fk_log.h"
+#include "fk_ui.h"
+#include "fk_log.h"
+
 
 void runTeleoperation() {
 
@@ -22,6 +27,7 @@ void runTeleoperation() {
     printf("\n---------------------------------------\n");
 
     initSerial("COM3");    // change COM port if needed
+    fk_log_init();
 
     while (1) {
 
@@ -65,10 +71,14 @@ void runTeleoperation() {
         clampJoints(&j);
 
         printStatus(j);
+        print_fk(&j); 
+
         sendJointAngles(j);
+        fk_log_step(&j);
 
         if (t.recording) recordStep(&t, j);
     }
 
+    fk_log_close();
     printf("\nGoodbye!\n");
 }
